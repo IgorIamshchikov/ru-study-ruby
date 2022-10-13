@@ -4,12 +4,10 @@ module Exercise
       def replace(array)
         max = 0
         array.each do |x|
-          if x > max
-            max = x
-          end
+          max = x if x > max
         end
         array.map do |i|
-          if i > 0
+          if i.positive?
             max
           else
             i
@@ -19,19 +17,19 @@ module Exercise
 
       def search(array, query)
         min = 0
-        max = array.length - 1 
+        max = array.length - 1
         while min <= max
-          mid = (min + max)/2.round
-          midVal = array[mid]
-          if midVal == query
-            return mid
-          elsif midVal > query
+          mid = (min + max) / 2.round
+          mid_val = array[mid]
+          return mid if mid_val == query
+
+          if mid_val > query
             max = mid - 1
-          else 
+          else
             min = mid + 1
           end
         end
-        return -1
+        -1
       end
     end
   end
