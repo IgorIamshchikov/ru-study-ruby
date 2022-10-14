@@ -4,9 +4,15 @@ module Exercise
       # Обратиться к параметрам фильма можно так:
       # film["name"], film["rating_kinopoisk"], film["rating_imdb"],
       # film["genres"], film["year"], film["access_level"], film["country"]
+      def sorted_films(film)
+        !film['country'].nil? &&
+          film['country'].split(',').length > 1 &&
+          film['rating_kinopoisk'].to_f.positive?
+      end
+
       def rating(array)
         array_ratings = array.map do |film|
-          film['rating_kinopoisk'].to_f if film['country'].to_s.include?(',') && film['rating_kinopoisk'].to_f.positive?
+          film['rating_kinopoisk'].to_f if sorted_films(film)
         end
 
         array_ratings.compact!
