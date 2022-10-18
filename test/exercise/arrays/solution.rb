@@ -15,21 +15,13 @@ module Exercise
       end
 
       def search(array, query, min = 0, max = array.size - 1)
-        return -1 if array.empty? || query < array[min] || query > array[max]
+        return -1 if array.empty? || query < array[min] || query > array[max] || min > max
 
         mid = ((min + max) / 2).round
         mid_val = array[mid]
-        if min <= max
-          return mid if mid_val == query
+        return mid if mid_val == query
 
-          if mid_val > query
-            search(array, query, min, mid - 1)
-          else
-            search(array, query, mid + 1, max)
-          end
-        else
-          -1
-        end
+        mid_val > query ? search(array, query, min, mid - 1) : search(array, query, mid + 1, max)
       end
     end
   end
