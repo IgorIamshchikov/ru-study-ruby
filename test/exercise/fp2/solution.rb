@@ -24,12 +24,7 @@ module Exercise
       # Написать свою функцию my_reduce
       def my_reduce(acc = nil, &block)
         first, *rest = self
-        if acc.nil?
-          acc = yield(first, rest[0])
-          return MyArray.new(rest[1..(rest.size - 1)]).my_reduce(acc, &block)
-        else
-          acc = yield(acc, first)
-        end
+        acc = acc.nil? ? first : yield(acc, first)
         rest.empty? ? acc : MyArray.new(rest).my_reduce(acc, &block)
       end
     end
